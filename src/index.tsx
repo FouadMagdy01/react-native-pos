@@ -249,32 +249,9 @@ export function feedPaper(dots: number): Promise<void> {
 }
 
 // Execute Printing
-export function startPrinting(options?: PrintOptions): Promise<void> {
-  return new Promise((resolve, reject) => {
-    let hasResolved = false;
-
-    Pos.startPrinting(
-      options,
-      () => {
-        // Method called successfully (printing started)
-        if (!hasResolved) {
-          hasResolved = true;
-          resolve();
-        }
-      },
-      (errorCode: number) => {
-        // Printing failed
-        if (!hasResolved) {
-          hasResolved = true;
-          reject(new Error(`Printing failed with error code: ${errorCode}`));
-        }
-      },
-      () => {
-        // Printing finished successfully
-        // Note: This callback might come after resolve() is called
-        console.log('Printing finished successfully');
-      }
-    );
+export function startPrinting(): Promise<void> {
+  return new Promise(() => {
+    Pos.startPrinting();
   });
 }
 

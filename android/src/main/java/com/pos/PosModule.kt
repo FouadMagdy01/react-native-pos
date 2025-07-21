@@ -256,26 +256,20 @@ class PosModule(reactContext: ReactApplicationContext) :
   }
 
 
-  override fun startPrinting(options: ReadableMap?, onSuccess: Callback?, onError: Callback?, onFinish: Callback?) {
+  override fun startPrinting() {
     try {
       val printerInstance = printer ?: throw Exception("Printer not initialized")
 
       val bundle = Bundle()
-      options?.let {
-        if (it.hasKey("feed_len")) {
-          bundle.putInt("feed_len", it.getInt("feed_len"))
-        }
-      }
+
 
       printerInstance.startPrinting(bundle, object : PrinterListener {
         override fun onError(errorCode: Int) {
           Log.e(NAME, "Printing failed with error code: $errorCode")
-          onError?.invoke(errorCode)
         }
 
         override fun onFinish() {
           Log.d(NAME, "Printing finished successfully")
-          onFinish?.invoke()
         }
 
         override fun onReport(event: Int) {
@@ -283,10 +277,8 @@ class PosModule(reactContext: ReactApplicationContext) :
         }
       })
 
-      onSuccess?.invoke() // Method called successfully
     } catch (e: Exception) {
       Log.e(NAME, "Error starting printing: ${e.message}", e)
-      onError?.invoke(-1)
     }
   }
 

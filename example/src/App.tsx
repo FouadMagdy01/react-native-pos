@@ -490,6 +490,9 @@ export default function App() {
           style={[
             styles.button,
             (!isInitialized || isLoading) && styles.disabledButton,
+            {
+              marginBottom: 180,
+            },
           ]}
           onPress={handlePrintBarcode}
           disabled={!isInitialized || isLoading}
