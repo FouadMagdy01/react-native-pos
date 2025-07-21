@@ -249,9 +249,12 @@ export function feedPaper(dots: number): Promise<void> {
 }
 
 // Execute Printing
-export function startPrinting(): Promise<void> {
+export function startPrinting(
+  onSuccess: () => void | undefined,
+  onFailure: () => void | undefined
+): Promise<void> {
   return new Promise(() => {
-    Pos.startPrinting();
+    Pos.startPrinting(onSuccess, onFailure);
   });
 }
 
@@ -329,7 +332,10 @@ export async function printReceipt(
     }
 
     // Start printing
-    await startPrinting();
+    await startPrinting(
+      () => {},
+      () => {}
+    );
   } catch (error) {
     throw new Error(`Receipt printing failed: ${error}`);
   }

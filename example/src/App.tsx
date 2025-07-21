@@ -127,7 +127,10 @@ export default function App() {
         fontSize: 18,
       });
 
-      await startPrinting();
+      await startPrinting(
+        () => {},
+        () => {}
+      );
       Alert.alert('Success', 'Text printed successfully!');
 
       // Refresh printer status after printing
@@ -250,7 +253,10 @@ export default function App() {
         fontSize: 20,
       });
 
-      await startPrinting();
+      await startPrinting(
+        () => {},
+        () => {}
+      );
       Alert.alert('Success', 'Receipt printed successfully!');
 
       // Refresh status
@@ -295,7 +301,10 @@ export default function App() {
         fontSize: 16,
       });
 
-      await startPrinting();
+      await startPrinting(
+        () => {},
+        () => {}
+      );
       Alert.alert('Success', 'Barcode printed successfully!');
 
       // Refresh status

@@ -91,7 +91,7 @@ export interface Spec extends TurboModule {
   feedPaper(dots: number, callback: (error?: string) => void): void;
 
   // Execute printing
-  startPrinting(): void;
+  startPrinting(onSuccess: () => void, onFailure: () => void): void;
 
   // Device information - FIXED: Removed | null
   getVersionInfo(): VersionInfo;

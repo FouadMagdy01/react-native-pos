@@ -256,7 +256,7 @@ class PosModule(reactContext: ReactApplicationContext) :
   }
 
 
-  override fun startPrinting() {
+  override fun startPrinting(onSuccess: Callback , onFailure: Callback) {
     try {
       val printerInstance = printer ?: throw Exception("Printer not initialized")
 
@@ -265,10 +265,12 @@ class PosModule(reactContext: ReactApplicationContext) :
 
       printerInstance.startPrinting(bundle, object : PrinterListener {
         override fun onError(errorCode: Int) {
+          onFailure.invoke()
           Log.e(NAME, "Printing failed with error code: $errorCode")
         }
 
         override fun onFinish() {
+          onSuccess.invoke()
           Log.d(NAME, "Printing finished successfully")
         }
 
